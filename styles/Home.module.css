@@ -1,0 +1,140 @@
+/** Mobile first development **/
+
+.container {
+  margin-top: 0;
+  background: url("/static/bg1.jpg");
+  background-repeat:no-repeat;
+  background-size: cover;
+  color: #373b64;
+}
+
+
+
+.main {
+  margin-top: 2.5rem ;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 72rem ;
+  padding-left: 1rem ;
+  padding-right: 1rem ;
+  margin-bottom: 0rem;
+
+}
+
+.heroImage {
+  position: absolute;
+  top: 0px;
+  z-index: 1;
+  right: 20px;
+  margin-right: 3%;
+}
+.sectionWrapper{
+  margin-top: 5rem;
+}
+.cardLayout {
+  display: grid;
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+  column-gap: 1.5rem /* 24px */;
+  row-gap: 1.5rem /* 24px */;
+}
+
+.card {
+  justify-content: center;
+}
+
+.heading2 {
+  font-size: 2.25rem;
+  line-height: 2.5rem;
+  padding-bottom: 2rem;
+  margin-top: 2rem;
+  color: var(--text-yellow);
+}
+
+.sectionWrapper {
+  margin-top: 5rem;
+}
+
+/** Breakpoints:
+  sm: min-width: 640px;
+  md: min-width: 768px;
+  lg: min-width: 1024px;
+  xl: min-width: 1280px;
+  2xl: min-width: 1536px;
+**/
+
+@media (min-width: 640px) {
+  .container {
+    padding-left: 1rem /* 16px */;
+    padding-right: 1rem /* 16px */;
+    margin-bottom: 0rem;
+
+  }
+
+  .main {
+    margin-top: 3rem ;
+    padding-left: 1.5rem ;
+    padding-right: 1.5rem 
+  }
+  .cardLayout {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 768px) {
+  .container {
+    padding-left: 2.5rem /* 40px */;
+    padding-right: 2.5rem /* 40px */;
+    margin-bottom: 0rem;
+
+
+  }
+
+  .main {
+    margin-top: 0rem ;
+
+  }
+
+  .heroImage {
+    right: 20%;
+  }
+
+  .cardLayout {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1024px) {
+  .container {
+    padding-left: 2.5rem /* 40px */;
+    padding-right: 2.5rem /* 40px */;
+    margin-bottom: 0rem;
+
+    
+  }
+  .main {
+    padding-left: 2rem ;
+    padding-right: 2rem ;
+
+
+  }
+  .heroImage {
+    right: 5%;
+    top: 0%;
+  }
+  
+  .cardLayout {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1280px) {
+  .main {
+    margin-top: 0rem ;
+  }
+  .heading2{
+    margin-top: 0rem;
+  }
+  .cardLayout {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
