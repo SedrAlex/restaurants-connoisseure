@@ -3,8 +3,8 @@
 .container {
   margin-top: 0;
   background: url("/static/bg1.jpg");
-  background-repeat:no-repeat;
-  background-size: cover;
+  background-repeat:repeat-y;
+  background-size: contain;
   color: #373b64;
 }
 

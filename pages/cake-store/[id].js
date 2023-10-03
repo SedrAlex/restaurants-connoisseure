@@ -11,13 +11,14 @@ import { fetchCakeStores } from "../../lib/cakes-stores";
 export async function getStaticProps(staticProps) {
 
   const params = staticProps.params;
-  const cakesStores = await fetchCakeStores()
+  const cakeStores = await fetchCakeStores();
+  const findCakeStoreById = cakeStores.find((coffeeStore) => {
+    return coffeeStore.id.toString() === params.id; //dynamic id
+  })
 
   return {
     props: {
-      CoffeStore: cakesStores.find((coffeStore) => {
-        return coffeStore.id.toString() === params.id; //dynamic id
-      }),
+      CoffeStore: findCakeStoreById ? findCakeStoreById : {}  ,
     },
   };
 }
@@ -33,7 +34,7 @@ export async function getStaticPaths() {
   });
   return {
     paths,
-    fallback: true,
+    fallback: true ,
   };
 }
 

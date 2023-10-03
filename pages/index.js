@@ -6,7 +6,7 @@ import Card from "../components/card";
 import coffeeStoresData from "../data/coffee-stores.json";
 import { fetchCakeStores } from "../lib/cakes-stores";
 import useTrackLocation from "../hooks/use-track-location";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 export async function getStaticProps(context) {
   console.log("HI from getStaticProps");
@@ -24,22 +24,27 @@ export default function Home(props) {
 
   const { handleTrackLocation, latLong, locationErrosMsg, isFindingLocation } =
     useTrackLocation();
+  const [cakeStores, setCakeStores] = useState("");
+  const [cakeStoresError, setcakeStoresError] = useState("");
+
   console.log({ latLong, locationErrosMsg });
 
   useEffect(() => {
-    async function setCoffeeStoresByLocation() {
+    async function setCakestoresByLocation() {
       if (latLong) {
         try {
-          const fetchedCoffeeStores = await fetchCoffeeStores(latLong, 6);
-          console.log({ fetchedCoffeeStores });
+          const fetchedCakesStores = await fetchCakeStores(latLong, 30);
+          console.log({ fetchedCakesStores });
+          setCakeStores(fetchedCakesStores);
           //set coffee stores
         } catch (error) {
           //set error
           console.log("Error", { error });
+          setcakeStoresError(error.message);
         }
       }
     }
-    setCoffeeStoresByLocation();
+    setCakestoresByLocation();
   }, [latLong]);
   const handleOnBannerBtnClick = () => {
     handleTrackLocation();
@@ -52,19 +57,21 @@ export default function Home(props) {
 
       <main className={styles.main}>
         <Banner
-         buttonText={isFindingLocation ? "Locating..." : "View Stores nearby"}
+          buttonText={isFindingLocation ? "Locating..." : "View Stores nearby"}
           handleOnClick={handleOnBannerBtnClick}
         />
         {locationErrosMsg && <p>Something went wrong: {locationErrosMsg}</p>}
+        {cakeStoresError && <p>Something went wrong: {cakeStoresError}</p>}
+
         <div className={styles.heroImage}>
           <Image src="/static/back2.gif" width={400} height={300} />
         </div>
-        <div className={styles.sectionWrapper}>
-        {props.coffeeStores.length > 0 && (
-          <>
-            <h2 className={styles.heading2}> Damascus stores</h2>
+
+        {cakeStores.length > 0 && (
+          <div>
+            <h2 className={styles.heading2}> Stores near me</h2>
             <div className={styles.cardLayout}>
-              {props.coffeeStores.map((coffeeStore) => {
+              {cakeStores.map((coffeeStore) => {
                 return (
                   <Card
                     key={coffeeStore.id}
@@ -79,10 +86,33 @@ export default function Home(props) {
                 );
               })}
             </div>
-          </>
+          </div>
         )}
-      </div>
-     </main>
+
+        <div className={styles.sectionWrapper}>
+          {props.coffeeStores.length > 0 && (
+            <div>
+              <h2 className={styles.heading2}> Damascus stores</h2>
+              <div className={styles.cardLayout}>
+                {props.coffeeStores.map((coffeeStore) => {
+                  return (
+                    <Card
+                      key={coffeeStore.id}
+                      name={coffeeStore.name}
+                      imgUrl={
+                        coffeeStore.imgUrl ||
+                        "https://i1.fnp.com/images/pr/l/v20181026212033/pineapple-cake-half-kg_1.jpg"
+                      }
+                      href={`/cake-store/${coffeeStore.id}`}
+                      className={styles.card}
+                    />
+                  );
+                })}
+              </div>
+            </div>
+          )}
+        </div>
+      </main>
     </div>
   );
 }
