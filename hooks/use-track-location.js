@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 const useTrackLocation = () => {
-  const [latLong, setLatLong] = useState("");
+  //const [latLong, setLatLong] = useState("");
   const [locationErrosMsg, setLocationErrorMsg] = useState("");
  const[isFindingLocation, setIsFindingLocation] = useState(false)
   const success = (position) => {
@@ -31,7 +31,7 @@ const useTrackLocation = () => {
   };
 
   return {
-    latLong,
+    //latLong,
     handleTrackLocation,
     locationErrosMsg,
     isFindingLocation
